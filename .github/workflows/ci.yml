@@ -1,0 +1,18 @@
+name: CI with Cache
+
+on: [push]  # Triggers on every push to any branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: prime-cache-676e8f6  # REQUIRED: Exact step name
+      uses: actions/cache@v4     # REQUIRED: v4 or newer
+      with:
+        key: cache-676e8f6      # REQUIRED: Exact fixed key
+        path: ~/.npm            # Cache npm global cache (common for deps)
+        # Note: First run = MISS (no cache exists), creates new one if job succeeds
